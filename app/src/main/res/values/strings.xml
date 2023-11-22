@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">SayIt</string>
+    <string name="login">Login</string>
+    <string name="appname">SayIt!</string>
+    <string name="say_it_slogan">Brave To Speak English</string>
 </resources>

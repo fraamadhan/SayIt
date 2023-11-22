@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    //light
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="primary_light">#89FC72</color>
+    <color name="onprimary_container_light">#002200</color>
+    <color name="secondary_light">#336B00</color>
+    <color name="secondary_container_light">#ACF676</color>
+    <color name="onsecondary_container_light">#0B2000</color>
+    <color name="tertiary_light">#00658D</color>
+    <color name="tertiary_container_light">#C6E7FF</color>
+    <color name="ontertiary_container_light">#001E2D</color>
+    <color name="tertiary_60">#2D9ACF</color>
+    <color name="error_light">#BA1A1A</color>
+    <color name="error_container_light">#FFDAD6</color>
+    <color name="onerror_container_light">#410002</color>
 </resources>
