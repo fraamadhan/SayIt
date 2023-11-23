@@ -1,26 +1,27 @@
-package com.example.sayit.view.login
+package com.example.sayit.view.register
 
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import androidx.appcompat.app.AppCompatActivity
-import com.example.sayit.databinding.ActivityLoginBinding
-import com.example.sayit.view.register.RegisterActivity
+import com.example.sayit.databinding.ActivityRegisterBinding
+import com.example.sayit.view.login.LoginActivity
 
-class LoginActivity : AppCompatActivity() {
+class RegisterActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityLoginBinding
+    private lateinit var binding: ActivityRegisterBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityLoginBinding.inflate(layoutInflater)
+        binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.btnLogin.isEnabled = false
+        binding.btnRegister.isEnabled = false
         setupAction()
 
-        binding.btnGoRegister.setOnClickListener {
-            startActivity(Intent(this@LoginActivity, RegisterActivity::class.java))
+        binding.btnGoLogin.setOnClickListener {
+            startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
         }
     }
 
@@ -28,18 +29,20 @@ class LoginActivity : AppCompatActivity() {
         binding?.apply {
             emailEditText.addTextChangedListener(watcher)
             passwordEditText.addTextChangedListener(watcher)
+            nameEditText.addTextChangedListener(watcher)
         }
     }
 
     private fun setMyButtonEnabled() {
         val email = binding?.emailEditText
         val password = binding?.passwordEditText
+        val name = binding?.nameEditText?.text
 
-        if (email?.text!!.isNotEmpty() && password?.text!!.isNotEmpty()) {
-            binding?.btnLogin?.isEnabled = email?.error == null && password?.error == null
+        if (email?.text!!.isNotEmpty() && password?.text!!.isNotEmpty() && name!!.isNotEmpty()) {
+            binding?.btnRegister?.isEnabled = email?.error == null && password?.error == null && name!!.isNotEmpty()
         }
         else {
-            binding?.btnLogin?.isEnabled = false
+            binding?.btnRegister?.isEnabled = false
         }
     }
 
