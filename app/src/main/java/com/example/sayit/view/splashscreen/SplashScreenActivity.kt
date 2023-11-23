@@ -12,7 +12,7 @@ import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import com.example.sayit.R
 import com.example.sayit.databinding.ActivitySplashScreenBinding
-import com.example.sayit.view.MainActivity
+import com.example.sayit.view.login.LoginActivity
 
 class SplashScreenActivity : AppCompatActivity() {
 
@@ -25,6 +25,7 @@ class SplashScreenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySplashScreenBinding.inflate(layoutInflater)
+
         @Suppress("DEPRECATION")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.hide(WindowInsets.Type.statusBars())
@@ -44,7 +45,7 @@ class SplashScreenActivity : AppCompatActivity() {
         binding.appSlogan.setAnimation(bottomAnimation)
 
         Handler(Looper.getMainLooper()).postDelayed({
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             finish()
         }, SPLASH_SCREEN)
