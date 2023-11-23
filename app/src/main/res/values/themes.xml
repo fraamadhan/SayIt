@@ -2,8 +2,25 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.SayIt" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/primary_light</item>
+        <item name="colorSecondary">@color/secondary_light</item>
+        <item name="colorTertiary">@color/tertiary_light</item>
     </style>
 
     <style name="Theme.SayIt" parent="Base.Theme.SayIt" />
+
+    <style name="Theme.SplashScreen" parent="Base.Theme.SayIt">
+        <item name="android:background">@color/primary_light</item>
+        <item name="backgroundColor">@color/primary_light</item>
+    </style>
+
+    <style name="MyTextInputLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <!-- border color -->
+        <item name="boxStrokeColor">@color/black</item>
+
+        <!-- The color of the label when it is collapsed and the text field is active -->
+        <item name="hintTextColor">#bbbbbb</item>
+        <!-- The color of the label in all other text field states (such as resting and disabled) -->
+        <item name="android:textColorHint">#bbbbbb</item>
+    </style>
 </resources>

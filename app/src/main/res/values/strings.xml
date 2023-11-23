@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">SayIt</string>
+    <string name="login">Login</string>
+    <string name="appname">SayIt!</string>
+    <string name="say_it_slogan">Brave To Speak English</string>
+    <string name="sign_in_to_your_account">Sign in to your account</string>
+    <string name="app_logo">App Logo</string>
+    <string name="password_error_message">Password cannot be less than 8 characters</string>
+    <string name="email_error_message">Use the valid email</string>
+    <string name="email">Email</string>
+    <string name="hint_email">Input your email</string>
+    <string name="password">Password</string>
+    <string name="hint_password">Input your password</string>
 </resources>
