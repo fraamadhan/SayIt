@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.login.LoginActivity">
+    tools:context=".view.register.RegisterActivity">
 
     <ImageView
         android:id="@+id/iv_logo"
         android:layout_width="0dp"
-        android:layout_height="125dp"
+        android:layout_height="100dp"
         android:src="@drawable/logosayit"
         android:layout_marginTop="10dp"
         android:contentDescription="@string/app_logo"
@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:text="@string/appname"
         android:textStyle="bold"
-        android:textSize="40sp"
+        android:textSize="30sp"
         android:fontFamily="@font/itc_avant_garde_gothic"
         android:textColor="@color/tertiary_light"
         app:layout_constraintTop_toBottomOf="@id/iv_logo"
@@ -33,10 +33,10 @@
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <TextView
-        android:id="@+id/tv_sign_in_title"
+        android:id="@+id/tv_sign_up_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/sign_in_to_your_account"
+        android:text="@string/sign_up_to_create_account"
         android:textSize="22sp"
         android:textStyle="bold"
         android:fontFamily="@font/average_sans"
@@ -44,6 +44,49 @@
         app:layout_constraintTop_toBottomOf="@id/tv_app_name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/nameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="22dp"
+        android:text="@string/name"
+        android:textColor="@color/black"
+        android:fontFamily="@font/average_sans"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_sign_up_title"/>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/nameEditTextLayout"
+        style="@style/MyTextInputLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
+        app:boxCornerRadiusBottomStart="10dp"
+        app:boxCornerRadiusBottomEnd="10dp"
+        app:boxCornerRadiusTopEnd="10dp"
+        app:boxCornerRadiusTopStart="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nameTextView">
+
+        <com.example.sayit.view.customview.MyEditText
+            android:id="@+id/nameEditText"
+            android:layout_width="340dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:fontFamily="@font/average_sans"
+            android:textSize="16sp"
+            android:inputType="textPersonName"
+            android:drawablePadding="10dp"
+            android:drawableStart="@drawable/ic_profile"
+            android:hint="@string/hint_name"
+            tools:ignore="SpeakableTextPresentCheck"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/emailTextView"
@@ -56,7 +99,8 @@
         android:fontFamily="@font/average_sans"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_sign_in_title"/>
+        app:layout_constraintTop_toBottomOf="@id/nameEditTextLayout"/>
+
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/emailEditTextLayout"
@@ -133,7 +177,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.example.sayit.view.customview.MyButton
-        android:id="@+id/btn_login"
+        android:id="@+id/btn_register"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="45dp"
@@ -141,7 +185,7 @@
         android:width="270dp"
         android:height="40dp"
         android:fontFamily="@font/average_sans"
-        android:text="@string/login"
+        android:text="@string/register"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -150,16 +194,15 @@
         app:layout_constraintVertical_bias="0.1" />
 
     <Button
-        android:id="@+id/btn_go_register"
+        android:id="@+id/btn_go_login"
         style="@style/Go_Register_Login"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:text="@string/register"
+        android:text="@string/login"
         android:drawableEnd="@drawable/ic_right_arrow"
-        app:layout_constraintTop_toBottomOf="@id/btn_login"
+        app:layout_constraintTop_toBottomOf="@id/btn_register"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

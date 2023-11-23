@@ -11,4 +11,8 @@
     <string name="hint_email">Input your email</string>
     <string name="password">Password</string>
     <string name="hint_password">Input your password</string>
+    <string name="register">Register</string>
+    <string name="sign_up_to_create_account">Sign up to create account</string>
+    <string name="name">Name</string>
+    <string name="hint_name">Input your name</string>
 </resources>
