@@ -6,7 +6,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import androidx.appcompat.app.AppCompatActivity
 import com.example.sayit.databinding.ActivityLoginBinding
-import com.example.sayit.view.register.RegisterActivity
+import com.example.sayit.view.MainActivity
 
 class LoginActivity : AppCompatActivity() {
 
@@ -20,7 +20,7 @@ class LoginActivity : AppCompatActivity() {
         setupAction()
 
         binding.btnGoRegister.setOnClickListener {
-            startActivity(Intent(this@LoginActivity, RegisterActivity::class.java))
+            startActivity(Intent(this@LoginActivity, MainActivity::class.java))
         }
     }
 

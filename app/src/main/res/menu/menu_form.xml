@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/search_icon"
+        android:title="@string/search"
+        android:icon="@drawable/ic_search"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/sorting_icon"
+        android:title="@string/sorting"
+        android:icon="@drawable/ic_sort"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/my_profile"
+        android:title="@string/profile"
+        android:icon="@drawable/ic_profile"
+        app:showAsAction="ifRoom"/>
+
+
+</menu>
