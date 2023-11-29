@@ -8,7 +8,7 @@ import retrofit2.http.Query
 interface ApiService {
     @GET("/words")
     suspend fun getWords(
-        @Query("rel_jja") realJja: String = "Teacher",
-        @Query("topics") topics: String = "Education",
+        @Query("rel_jja") realJja: String = "Ocean",
+        @Query("topics") topics: String = "Temperature",
     ): List<WordResponseItem>
 }
