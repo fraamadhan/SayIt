@@ -1,8 +1,10 @@
 package com.example.sayit.view.profile
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.sayit.databinding.ActivityProfileBinding
+import com.example.sayit.view.profile.editprofile.EditProfileActivity
 
 class ProfileActivity : AppCompatActivity() {
 
@@ -15,6 +17,10 @@ class ProfileActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolBar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        binding.btnEditProfile.setOnClickListener {
+            startActivity(Intent(this@ProfileActivity, EditProfileActivity::class.java))
+        }
     }
 
 }

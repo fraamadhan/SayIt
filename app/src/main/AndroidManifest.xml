@@ -15,9 +15,16 @@
         android:theme="@style/Theme.SayIt"
         tools:targetApi="31">
         <activity
+            android:name=".view.detailword.DetailWordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.profile.editprofile.EditProfileActivity"
+            android:exported="false"
+            android:parentActivityName=".view.profile.editprofile.EditProfileActivity" />
+        <activity
             android:name=".view.profile.ProfileActivity"
             android:exported="false"
-            android:parentActivityName=".view.MainActivity"/>
+            android:parentActivityName=".view.MainActivity" />
         <activity
             android:name=".view.register.RegisterActivity"
             android:exported="false" />
