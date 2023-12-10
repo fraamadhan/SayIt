@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sayit.R
 import com.example.sayit.adapter.WordAdapter
 import com.example.sayit.databinding.ActivityMainBinding
-import com.example.sayit.repository.Result
 import com.example.sayit.view.profile.ProfileActivity
 
 class MainActivity : AppCompatActivity() {
@@ -37,22 +36,22 @@ class MainActivity : AppCompatActivity() {
         adapter = WordAdapter()
         binding.rvWords.adapter = adapter
 
-        showLoading()
-        mainViewModel.getWordsFromApi().observe(this@MainActivity) {result ->
-            when (result) {
-                is Result.Success  -> {
-                    showSuccess()
-                    adapter.setData(result.data)
-//                    mainViewModel.deleteALl()
-                }
-                is Result.Loading -> {
-                    showLoading()
-                }
-                is Result.Error -> {
-                    Toast.makeText(this, result.error, Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
+//        showLoading()
+//        mainViewModel.getWordsFromApi().observe(this@MainActivity) {result ->
+//            when (result) {
+//                is Result.Success  -> {
+//                    showSuccess()
+//                    adapter.setData(result.data)
+////                    mainViewModel.deleteALl()
+//                }
+//                is Result.Loading -> {
+//                    showLoading()
+//                }
+//                is Result.Error -> {
+//                    Toast.makeText(this, result.error, Toast.LENGTH_SHORT).show()
+//                }
+//            }
+//        }
 
         val onBackPressedCallback = object: OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {

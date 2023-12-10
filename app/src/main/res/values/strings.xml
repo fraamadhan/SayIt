@@ -41,4 +41,7 @@
     <string name="speak_this_word">Speak this word</string>
     <string name="tap_to_speak">Tap to speak</string>
     <string name="message_state">Congratulations you are right!</string>
+
+    <string name="logout_alert">Do you want to logout?</string>
+    <string name="logout_message">Are you sure to leave us?</string>
 </resources>

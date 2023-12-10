@@ -14,7 +14,7 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-        buildConfigField("String", "BASE_URL", "\"https://api.datamuse.com/\"")
+        buildConfigField("String", "BASE_URL", "\"https://say-it-capstone-project.et.r.appspot.com/\"")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

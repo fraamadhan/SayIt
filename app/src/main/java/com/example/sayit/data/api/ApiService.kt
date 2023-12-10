@@ -1,14 +1,21 @@
 package com.example.sayit.data.api
 
+import com.example.sayit.data.request.LoginRequest
+import com.example.sayit.data.request.RegistrationRequest
+import com.example.sayit.model.GeneralLoginResponse
+import com.example.sayit.model.GeneralRegisterResponse
+import retrofit2.http.Body
+import retrofit2.http.POST
 
-import com.example.sayit.model.WordResponseItem
-import retrofit2.http.GET
-import retrofit2.http.Query
 
 interface ApiService {
-    @GET("/words")
-    suspend fun getWords(
-        @Query("rel_jja") realJja: String = "Ocean",
-        @Query("topics") topics: String = "Temperature",
-    ): List<WordResponseItem>
+    @POST("register")
+    suspend fun register(
+        @Body request: RegistrationRequest
+    ): GeneralRegisterResponse
+
+    @POST("/login")
+    suspend fun login(
+        @Body request: LoginRequest
+    ): GeneralLoginResponse
 }
