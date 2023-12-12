@@ -14,7 +14,7 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-        buildConfigField("String", "BASE_URL", "\"https://api.datamuse.com/\"")
+        buildConfigField("String", "BASE_URL", "\"https://say-it-capstone-project.et.r.appspot.com/\"")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -77,6 +77,12 @@ dependencies {
     //paging 3
     implementation("androidx.paging:paging-runtime-ktx:3.1.1")
     implementation("androidx.room:room-paging:2.6.0")
+
+    //circle image view
+    implementation("de.hdodenhof:circleimageview:3.1.0")
+
+    //Glide
+    implementation("com.github.bumptech.glide:glide:4.16.0")
 
 
 }

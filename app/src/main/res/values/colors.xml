@@ -16,4 +16,5 @@
     <color name="error_container_light">#FFDAD6</color>
     <color name="onerror_container_light">#410002</color>
     <color name="neutral_70">#C3C8BC</color>
+    <color name="btn_logout_color">#FF5449</color>
 </resources>

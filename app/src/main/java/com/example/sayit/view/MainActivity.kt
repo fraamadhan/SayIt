@@ -1,17 +1,20 @@
 package com.example.sayit.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.SearchView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sayit.R
 import com.example.sayit.adapter.WordAdapter
 import com.example.sayit.databinding.ActivityMainBinding
-import com.example.sayit.repository.Result
+import com.example.sayit.view.profile.ProfileActivity
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -33,22 +36,30 @@ class MainActivity : AppCompatActivity() {
         adapter = WordAdapter()
         binding.rvWords.adapter = adapter
 
-        showLoading()
-        mainViewModel.getWordsFromApi().observe(this@MainActivity) {result ->
-            when (result) {
-                is Result.Success  -> {
-                    showSuccess()
-                    adapter.setData(result.data)
-//                    mainViewModel.deleteALl()
-                }
-                is Result.Loading -> {
-                    showLoading()
-                }
-                is Result.Error -> {
-                    Toast.makeText(this, result.error, Toast.LENGTH_SHORT).show()
-                }
+//        showLoading()
+//        mainViewModel.getWordsFromApi().observe(this@MainActivity) {result ->
+//            when (result) {
+//                is Result.Success  -> {
+//                    showSuccess()
+//                    adapter.setData(result.data)
+////                    mainViewModel.deleteALl()
+//                }
+//                is Result.Loading -> {
+//                    showLoading()
+//                }
+//                is Result.Error -> {
+//                    Toast.makeText(this, result.error, Toast.LENGTH_SHORT).show()
+//                }
+//            }
+//        }
+
+        val onBackPressedCallback = object: OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                Toast.makeText(this@MainActivity, "Bye Owl", Toast.LENGTH_SHORT).show()
+                finish()
             }
         }
+        onBackPressedDispatcher.addCallback(onBackPressedCallback)
 
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -71,6 +82,16 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.my_profile -> {
+                startActivity(Intent(this, ProfileActivity:: class.java))
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
 
     private fun showSuccess() {
         binding.apply {
@@ -84,4 +105,5 @@ class MainActivity : AppCompatActivity() {
             rvWords.visibility = View.GONE
         }
     }
+
 }

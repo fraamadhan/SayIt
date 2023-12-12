@@ -1,5 +1,6 @@
 package com.example.sayit.adapter
 
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sayit.databinding.ItemWordsBinding
 import com.example.sayit.model.WordItem
+import com.example.sayit.view.detailword.DetailWordActivity
 
 class WordAdapter: ListAdapter<WordItem, WordAdapter.MyViewHolder> (DIFF_CALLBACK), Filterable{
 
@@ -29,6 +31,10 @@ class WordAdapter: ListAdapter<WordItem, WordAdapter.MyViewHolder> (DIFF_CALLBAC
         val word = getItem(position)
         if (word != null) {
             holder.bind(word)
+            holder.itemView.setOnClickListener {
+                val intent = Intent(holder.itemView.context, DetailWordActivity::class.java)
+                holder.itemView.context.startActivity(intent)
+            }
         }
     }
 
