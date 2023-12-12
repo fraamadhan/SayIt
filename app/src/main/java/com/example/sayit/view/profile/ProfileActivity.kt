@@ -47,6 +47,10 @@ class ProfileActivity : AppCompatActivity() {
             logout()
         }
 
+        getUser()
+    }
+
+    private fun getUser() {
         showLoading()
         viewModel.getUserToken().observe(this@ProfileActivity) {token ->
             viewModel.getUser(token.toString()).observe(this@ProfileActivity) {result ->
@@ -63,6 +67,7 @@ class ProfileActivity : AppCompatActivity() {
                         username =  result.data.user?.username
                         email = result.data.user?.email
                         urlImage = result.data.user?.profilePicture
+                        binding.profileImage.visibility = View.VISIBLE
 
                         viewModel.setUsername(username)
                         viewModel.setUrlImage(urlImage)
@@ -86,7 +91,6 @@ class ProfileActivity : AppCompatActivity() {
             }
         }
     }
-
     private fun showToast(msg: String) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }

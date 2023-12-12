@@ -37,6 +37,6 @@ interface ApiService {
     suspend fun updateUser(
         @Header("Authorization") token: String,
         @Part("username") username: RequestBody,
-        @Part imageFile: MultipartBody.Part,
+        @Part imageFile: MultipartBody.Part? = null,
     ): GeneralUserResponse
 }

@@ -9,9 +9,16 @@ import com.example.sayit.model.GeneralRegisterResponse
 import com.example.sayit.model.GeneralUserResponse
 import com.example.sayit.model.UserModel
 import com.example.sayit.preference.LoginPreferences
+import com.google.gson.Gson
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.HttpException
+import java.io.File
 
 class UserRepository(
     private val apiService: ApiService,
@@ -49,6 +56,28 @@ class UserRepository(
             emit(Result.Success(response))
         } catch (e: HttpException) {
             emit(Result.Error(e.message.toString()))
+        }
+    }
+
+    fun updateUser(token: String, username: String, imageFile: File?): Flow<Result<GeneralUserResponse>> = flow {
+        emit(Result.Loading)
+
+        val requestBody = username.toRequestBody("text/plain".toMediaType())
+        val requestImageFile = imageFile?.asRequestBody("image/jpeg".toMediaTypeOrNull())
+
+        val multipartBody = MultipartBody.Part.createFormData(
+            "Photo",
+            imageFile?.name.orEmpty(),
+            requestImageFile ?: "".toRequestBody("image/jpeg".toMediaTypeOrNull())
+        )
+
+        try {
+            val response = apiService.updateUser("Bearer $token", requestBody, multipartBody)
+            emit(Result.Success(response))
+        } catch (e: HttpException) {
+            val errorBody = e.response()?.errorBody()?.string()
+            val errorResponse = Gson().fromJson(errorBody, GeneralUserResponse::class.java)
+            emit(Result.Error(errorResponse.message.toString()))
         }
     }
 
