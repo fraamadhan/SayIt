@@ -52,6 +52,7 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
     <style name="Theme.SayIt.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="Theme.SayIt.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

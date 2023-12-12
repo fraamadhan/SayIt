@@ -31,7 +31,7 @@ class ViewModelFactory private constructor(
             return ProfileViewModel(userRepository) as T
         }
         if (modelClass.isAssignableFrom(EditProfileViewModel::class.java)) {
-            return EditProfileViewModel() as T
+            return EditProfileViewModel(userRepository) as T
         }
         if (modelClass.isAssignableFrom(DetailWordViewModel::class.java)) {
             return DetailWordViewModel() as T

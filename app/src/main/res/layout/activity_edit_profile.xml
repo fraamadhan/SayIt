@@ -16,12 +16,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profile_image"
         android:layout_width="0dp"
         android:layout_height="180dp"
         android:layout_marginTop="37dp"
-        tools:src="@drawable/bneparamore"
+        android:src="@drawable/harryhermioneron"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tool_bar"/>
@@ -30,10 +30,11 @@
         android:id="@+id/add_picture"
         android:layout_width="32dp"
         android:layout_height="0dp"
-        android:layout_marginEnd="116dp"
+        android:layout_marginEnd="128dp"
+        android:layout_marginBottom="12dp"
         app:layout_constraintBottom_toBottomOf="@id/profile_image"
         app:layout_constraintEnd_toEndOf="@id/profile_image"
-        tools:src="@drawable/ic_add_picture" />
+        android:src="@drawable/ic_add_picture" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/nameEditTextLayout"

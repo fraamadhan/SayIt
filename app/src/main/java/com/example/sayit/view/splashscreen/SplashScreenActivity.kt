@@ -1,11 +1,10 @@
 package com.example.sayit.view.splashscreen
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.view.WindowInsets
+import android.view.Window
 import android.view.WindowManager
 import android.view.animation.Animation
 import androidx.activity.viewModels
@@ -31,15 +30,11 @@ class SplashScreenActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySplashScreenBinding.inflate(layoutInflater)
 
-        @Suppress("DEPRECATION")
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            window.insetsController?.hide(WindowInsets.Type.statusBars())
-        } else {
-            window.setFlags(
-                WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN
-            )
-        }
+        requestWindowFeature(Window.FEATURE_NO_TITLE)
+        supportActionBar?.hide()
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN)
+
         setContentView(binding.root)
 
         keepLogin()
@@ -51,12 +46,6 @@ class SplashScreenActivity : AppCompatActivity() {
                 launchMainActivity()
             }
             else {
-//                topAnimation = AnimationUtils.loadAnimation(this, R.anim.top_animation)
-//                bottomAnimation = AnimationUtils.loadAnimation(this, R.anim.bottom_animation)
-//
-//                binding.ivLogo.setAnimation(topAnimation)
-//                binding.tvAppName.setAnimation(bottomAnimation)
-//                binding.appSlogan.setAnimation(bottomAnimation)
                 startAnimation()
             }
         }

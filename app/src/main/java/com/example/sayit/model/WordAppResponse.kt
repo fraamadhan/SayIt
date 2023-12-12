@@ -53,4 +53,31 @@ data class LoginResult(
 	val token: String? = null
 )
 
+data class GeneralUserResponse(
+
+	@field:SerializedName("data")
+	val user: UserResponse? = null,
+
+	@field:SerializedName("message")
+	val message: String? = null,
+
+	@field:SerializedName("status")
+	val status: String? = null
+)
+
+data class UserResponse(
+
+	@field:SerializedName("ProfilePicture")
+	val profilePicture: String? = null,
+
+	@field:SerializedName("Id")
+	val id: String? = null,
+
+	@field:SerializedName("Email")
+	val email: String? = null,
+
+	@field:SerializedName("Username")
+	val username: String? = null
+)
+
 

@@ -2,14 +2,21 @@ package com.example.sayit.view.profile
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.example.sayit.R
 import com.example.sayit.databinding.ActivityProfileBinding
+import com.example.sayit.repository.Result
 import com.example.sayit.view.ViewModelFactory
 import com.example.sayit.view.login.LoginActivity
 import com.example.sayit.view.profile.editprofile.EditProfileActivity
+import com.example.sayit.view.profile.editprofile.EditProfileActivity.Companion.URL_IMAGE
+import com.example.sayit.view.profile.editprofile.EditProfileActivity.Companion.USERNAME
 
 class ProfileActivity : AppCompatActivity() {
 
@@ -17,6 +24,9 @@ class ProfileActivity : AppCompatActivity() {
     private val viewModel by viewModels<ProfileViewModel>{
         ViewModelFactory.getInstance(this)
     }
+    private var username : String? = null
+    private var urlImage : String? = null
+    private var email : String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,12 +37,66 @@ class ProfileActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         binding.btnEditProfile.setOnClickListener {
-            startActivity(Intent(this@ProfileActivity, EditProfileActivity::class.java))
+            val intent = Intent(this@ProfileActivity, EditProfileActivity::class.java)
+            intent.putExtra(USERNAME, viewModel.username.value)
+            intent.putExtra(URL_IMAGE, viewModel.urlImage.value)
+            startActivity(intent)
         }
 
         binding.btnLogout.setOnClickListener {
             logout()
         }
+
+        showLoading()
+        viewModel.getUserToken().observe(this@ProfileActivity) {token ->
+            viewModel.getUser(token.toString()).observe(this@ProfileActivity) {result ->
+                when(result) {
+                    is Result.Error -> {
+                        hideLoading()
+                        showToast(result.error)
+                    }
+                    is Result.Loading -> {
+                        showLoading()
+                    }
+                    is Result.Success -> {
+                        hideLoading()
+                        username =  result.data.user?.username
+                        email = result.data.user?.email
+                        urlImage = result.data.user?.profilePicture
+
+                        viewModel.setUsername(username)
+                        viewModel.setUrlImage(urlImage)
+
+                        if (urlImage != "") {
+                            Glide.with(this)
+                                .load(urlImage)
+                                .into(binding.profileImage)
+                        }
+                        else {
+                            Glide.with(this)
+                                .load(R.drawable.bneparamore)
+                                .into(binding.profileImage)
+                        }
+                        binding.email.text = email
+                        binding.username.text = username
+
+                        Log.d("INI RESULT USER", result.data.user.toString())
+                    }
+                }
+            }
+        }
+    }
+
+    private fun showToast(msg: String) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun hideLoading() {
+        binding.progressBar.visibility = View.GONE
+    }
+
+    private fun showLoading() {
+        binding.progressBar.visibility = View.VISIBLE
     }
 
     private fun logout() {

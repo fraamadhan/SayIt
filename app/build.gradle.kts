@@ -78,5 +78,11 @@ dependencies {
     implementation("androidx.paging:paging-runtime-ktx:3.1.1")
     implementation("androidx.room:room-paging:2.6.0")
 
+    //circle image view
+    implementation("de.hdodenhof:circleimageview:3.1.0")
+
+    //Glide
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+
 
 }
