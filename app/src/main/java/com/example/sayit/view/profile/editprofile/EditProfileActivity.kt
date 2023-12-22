@@ -64,15 +64,16 @@ class EditProfileActivity : AppCompatActivity() {
     private fun updateUser() {
         val username = binding.nameEditText.text.toString().trim()
         val imageFile = currentImageUrl?.let {uri ->
+            Log.d("INI URI", uri.toString())
             uriToFile(uri, this).reduceImageFile()
         }
+        Log.d("INI IMAGE FILE", imageFile.toString())
 
         showLoading()
 
         viewModel.getUserToken().observe(this@EditProfileActivity) { token ->
             Log.d("TOKEN EDIT", token.toString())
             viewModel.updateUser(token.toString(), username, imageFile).observe(this@EditProfileActivity) { result ->
-
                 when(result) {
                     is Result.Error -> {
                         hideLoading()

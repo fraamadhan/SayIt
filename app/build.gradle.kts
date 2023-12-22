@@ -14,6 +14,7 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
+        buildConfigField("String", "BASE_URL", "\"https://say-it-capstone-project.et.r.appspot.com/\"")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -67,15 +68,15 @@ dependencies {
     implementation("androidx.datastore:datastore-preferences:1.0.0")
 
     //activity-activity
-    implementation("androidx.activity:activity-ktx:1.8.1")
+    implementation("androidx.activity:activity-ktx:1.8.2")
 
     //Room
-    implementation ("androidx.room:room-ktx:2.6.0")
-    ksp ("androidx.room:room-compiler:2.6.0")
+    implementation ("androidx.room:room-ktx:2.6.1")
+    ksp ("androidx.room:room-compiler:2.6.1")
 
     //paging 3
-    implementation("androidx.paging:paging-runtime-ktx:3.1.1")
-    implementation("androidx.room:room-paging:2.6.0")
+    implementation("androidx.paging:paging-runtime-ktx:3.2.1")
+    implementation("androidx.room:room-paging:2.6.1")
 
     //circle image view
     implementation("de.hdodenhof:circleimageview:3.1.0")

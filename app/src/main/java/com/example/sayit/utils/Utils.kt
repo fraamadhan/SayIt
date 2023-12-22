@@ -18,6 +18,7 @@ private const val FILENAME_FORMAT = "yyyyMMdd_HHmmss"
 private val timeStamp: String = SimpleDateFormat(FILENAME_FORMAT, Locale.US).format(Date())
 private const val MAXIMAL_SIZE = 1000000
 
+
 fun createCustomFile(context: Context) : File {
     val filesDir = context.externalCacheDir
     return File.createTempFile(timeStamp, ".jpg", filesDir)

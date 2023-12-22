@@ -56,10 +56,51 @@
         app:layout_constraintTop_toBottomOf="@id/word_item"/>
 
     <ImageView
-        android:id="@+id/background_state"
+        android:id="@+id/background_correct_state"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/primary_light"
+        android:background="@drawable/curved_state_bg"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_record"/>
+
+    <ImageView
+        android:id="@+id/iv_audio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:layout_marginRight="40dp"
+        app:layout_constraintEnd_toEndOf="@id/background_correct_state"
+        app:layout_constraintTop_toTopOf="@id/background_correct_state"
+        android:src="@drawable/ic_audio"/>
+
+
+    <TextView
+        android:id="@+id/message_correct_state"
+        style="@style/TextAppearance.Material3.HeadlineSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/message_state"
+        android:layout_marginTop="28dp"
+        android:textStyle="bold"
+        android:textColor="@color/secondary_light"
+        android:fontFamily="@font/gotham_bold"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:layout_constraintTop_toTopOf="@id/iv_audio"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <ImageView
+        android:id="@+id/background_wrong_state"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/curved_wrong_state_bg"
         android:visibility="gone"
         tools:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
@@ -68,19 +109,38 @@
         app:layout_constraintTop_toBottomOf="@id/btn_record"/>
 
     <TextView
-        android:id="@+id/message_state"
+        android:id="@+id/message_wrong_state"
         style="@style/TextAppearance.Material3.HeadlineSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/message_state"
+        android:text="@string/message_wrong_state"
         android:layout_marginTop="28dp"
         android:textStyle="bold"
+        android:textColor="@color/error_light"
         android:fontFamily="@font/gotham_bold"
         android:visibility="gone"
         tools:visibility="visible"
-        app:layout_constraintTop_toTopOf="@id/background_state"
+        app:layout_constraintTop_toTopOf="@id/iv_audio"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
+
+    <Button
+        android:id="@+id/btn_back_to_home"
+        style="@style/ToHomeDetail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/home"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:textColor="@color/white"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="99dp"
+        android:layout_marginStart="99dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/message_correct_state"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.5"/>
 
 
 

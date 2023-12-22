@@ -19,7 +19,7 @@ class ViewModelFactory private constructor(
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
-            return MainViewModel(wordRepository) as T
+            return MainViewModel(wordRepository, userRepository) as T
         }
         if (modelClass.isAssignableFrom(LoginViewModel::class.java)) {
             return LoginViewModel(userRepository) as T
@@ -34,7 +34,7 @@ class ViewModelFactory private constructor(
             return EditProfileViewModel(userRepository) as T
         }
         if (modelClass.isAssignableFrom(DetailWordViewModel::class.java)) {
-            return DetailWordViewModel() as T
+            return DetailWordViewModel(wordRepository, userRepository) as T
         }
         throw IllegalArgumentException("Unknown Viewmodel CLass: " + modelClass.name)
     }

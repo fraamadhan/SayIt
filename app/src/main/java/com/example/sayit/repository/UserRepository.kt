@@ -52,7 +52,7 @@ class UserRepository(
         emit(Result.Loading)
         try {
             val response = apiService.getUser("Bearer $token")
-            Log.d("INI RESPONSE", response.message.toString())
+            Log.d("response user", response.user.toString())
             emit(Result.Success(response))
         } catch (e: HttpException) {
             emit(Result.Error(e.message.toString()))
@@ -61,18 +61,18 @@ class UserRepository(
 
     fun updateUser(token: String, username: String, imageFile: File?): Flow<Result<GeneralUserResponse>> = flow {
         emit(Result.Loading)
-
+        Log.d("TOKEN REPOSITORY", token)
         val requestBody = username.toRequestBody("text/plain".toMediaType())
-        val requestImageFile = imageFile?.asRequestBody("image/jpeg".toMediaTypeOrNull())
+        val requestImageFile = imageFile?.asRequestBody("image/*".toMediaTypeOrNull())
 
         val multipartBody = MultipartBody.Part.createFormData(
-            "Photo",
+            "photo",
             imageFile?.name.orEmpty(),
-            requestImageFile ?: "".toRequestBody("image/jpeg".toMediaTypeOrNull())
+            requestImageFile ?: "".toRequestBody("image/*".toMediaTypeOrNull())
         )
 
         try {
-            val response = apiService.updateUser("Bearer $token", requestBody, multipartBody)
+            val response = apiService.updateUser("Bearer $token", multipartBody, requestBody)
             emit(Result.Success(response))
         } catch (e: HttpException) {
             val errorBody = e.response()?.errorBody()?.string()
@@ -80,6 +80,7 @@ class UserRepository(
             emit(Result.Error(errorResponse.message.toString()))
         }
     }
+
 
     suspend fun saveSession(userModel: UserModel) {
         dataStore.saveSession(userModel)

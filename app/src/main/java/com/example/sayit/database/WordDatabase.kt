@@ -7,12 +7,13 @@ import androidx.room.RoomDatabase
 import com.example.sayit.model.WordItem
 
 @Database(
-    entities = [WordItem::class],
-    version = 1,
+    entities = [WordItem::class, RemoteKeys::class],
+    version = 2,
     exportSchema = false,
 )
 abstract class WordDatabase: RoomDatabase() {
     abstract fun wordDao(): WordDao
+    abstract fun remoteKeysDao(): RemoteKeysDao
 
     companion object {
         @Volatile

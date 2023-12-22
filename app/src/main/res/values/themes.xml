@@ -48,6 +48,11 @@
         <item name="android:backgroundTint">@color/neutral_70</item>
     </style>
 
+    <style name="ToHomeDetail" parent="StrokedButton">
+        <item name="android:backgroundTint">@color/secondary_light</item>
+        <item name="android:textColor">@color/onsecondary_container_light</item>
+    </style>
+
     <style name="Theme.SayIt.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
