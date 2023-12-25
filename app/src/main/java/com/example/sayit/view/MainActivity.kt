@@ -124,6 +124,7 @@ class MainActivity : AppCompatActivity() {
                 searchView.hide()
                 false
             }
+
             searchBar.inflateMenu(R.menu.searchbar_menu)
             searchBar.setOnMenuItemClickListener {menuItem ->
                 when(menuItem.itemId) {

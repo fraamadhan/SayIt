@@ -47,5 +47,6 @@
     <string name="search_word">Find a word ...</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="message_wrong_state">Try again :*</string>
+    <string name="message_wrong_state">Oops ... you are wrong :(</string>
+    <string name="try_again">Try Again</string>
 </resources>

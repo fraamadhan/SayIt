@@ -34,4 +34,25 @@ object ApiConfig {
 
         return retrofit.create(ApiService::class.java)
     }
+
+    fun getApiServiceGrading(): ApiServiceGrading{
+        val loggingInterceptor =
+            if(BuildConfig.DEBUG) {
+                HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+            } else {
+                HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.NONE)
+            }
+
+        val client = OkHttpClient.Builder()
+//                .addInterceptor(authInterceptor)
+            .addInterceptor(loggingInterceptor)
+            .build()
+        val retrofit = Retrofit.Builder()
+            .baseUrl(BuildConfig.GRADING_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
+            .build()
+
+        return retrofit.create(ApiServiceGrading::class.java)
+    }
 }

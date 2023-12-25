@@ -57,11 +57,11 @@ interface ApiService {
         @Path("id") wordId: Int,
     ): WordDetailResponse
 
-    @Multipart
-    @POST("/words/{id}")
-    suspend fun uploadAudio(
-        @Header("Authorization") token: String,
-        @Part audioFile: MultipartBody.Part? = null,
-        @Path("id") wordId: Int
-    )
+//    @Multipart
+//    @POST("/words/{id}")
+//    suspend fun uploadAudio(
+//        @Header("Authorization") token: String,
+//        @Part audioFile: MultipartBody.Part? = null,
+//        @Path("id") wordId: Int
+//    )
 }

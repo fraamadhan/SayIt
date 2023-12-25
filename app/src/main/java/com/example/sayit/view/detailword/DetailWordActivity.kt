@@ -38,6 +38,8 @@ class DetailWordActivity : AppCompatActivity() {
     private var wrongSoundId: Int = 0
     private var spLoaded = false
 
+    private var wordToGrade = "foo"
+
     private val viewModel by viewModels<DetailWordViewModel> {
         ViewModelFactory.getInstance(this)
     }
@@ -63,14 +65,35 @@ class DetailWordActivity : AppCompatActivity() {
                 }
                 MotionEvent.ACTION_UP -> {
                     stopRecording()
-                    binding.backgroundCorrectState.visibility = View.VISIBLE
-                    binding.ivAudio.visibility = View.VISIBLE
-                    binding.btnBackToHome.visibility = View.VISIBLE
-                    binding.messageCorrectState.visibility = View.VISIBLE
-                    binding.btnRecord.visibility = View.GONE
+                    val audioFile = File(output)
+                    showLoading(true)
+                    viewModel.grading(wordToGrade, audioFile).observe(this) { result ->
+                        when (result) {
+                            is Result.Success -> {
+                                showLoading(false)
 
-                    sp.play(correctSoundId, 1f, 1f, 1, 1, 1f)
-//                    sp.play(wrongSoundId, 1f, 1f, 1, 1, 1f)
+                                val accuracy = result.data.gradeResult.accuracy
+                                Log.d("ACCURACY YES", accuracy.toString())
+                                if (accuracy != null) {
+                                    if (accuracy >= 80) {
+                                        correctGrading()
+                                    } else {
+                                        wrongGrading()
+                                    }
+                                }
+                            }
+
+                            is Result.Error -> {
+                                showLoading(false)
+                                Log.d("ERROR EUY", result.error)
+                                showToast(result.error)
+                            }
+
+                            is Result.Loading -> {
+                                showLoading(true)
+                            }
+                        }
+                    }
                 }
                 else -> {
                 }
@@ -87,23 +110,57 @@ class DetailWordActivity : AppCompatActivity() {
             finish()
         }
 
+        binding.btnTryAgain.setOnClickListener {
+            resetPage()
+        }
+
+        showLoading(true)
         viewModel.getUserToken().observe(this) {token ->
             viewModel.getDetailWord(token.toString(), wordId).observe(this) { result ->
                 when (result) {
                     is Result.Success -> {
+                        showLoading(false)
                         binding.wordItem.text = result.data.word
+                        wordToGrade = result.data.word.toString()
                     }
                     is Result.Error -> {
-                        Toast.makeText(this, result.error.toString(), Toast.LENGTH_SHORT).show()
+                        showLoading(false)
+                        showToast(result.error)
                     }
                     is Result.Loading -> {
-                        //
+                        showLoading(true)
                     }
                 }
             }
         }
         requestPermissions()
 
+    }
+
+    private fun resetPage() {
+        binding.backgroundWrongState.visibility = View.GONE
+        binding.messageWrongState.visibility = View.GONE
+        binding.btnRecord.visibility = View.VISIBLE
+        binding.btnTryAgain.visibility = View.GONE
+    }
+
+    private fun correctGrading() {
+        binding.backgroundCorrectState.visibility = View.VISIBLE
+        binding.ivAudio.visibility = View.VISIBLE
+        binding.btnBackToHome.visibility = View.VISIBLE
+        binding.messageCorrectState.visibility = View.VISIBLE
+        binding.btnRecord.visibility = View.GONE
+
+        sp.play(correctSoundId, 1f, 1f, 1, 1, 1f)
+    }
+
+    private fun wrongGrading() {
+        binding.backgroundWrongState.visibility = View.VISIBLE
+        binding.messageWrongState.visibility = View.VISIBLE
+        binding.btnRecord.visibility = View.GONE
+        binding.btnTryAgain.visibility = View.VISIBLE
+
+        sp.play(wrongSoundId, 1f, 1f, 1, 1, 1f)
     }
 
     private fun setUpSoundPool() {
@@ -115,7 +172,7 @@ class DetailWordActivity : AppCompatActivity() {
             if (status == 0) {
                 spLoaded = true
             } else {
-                Toast.makeText(this@DetailWordActivity, "Failed to load sound", Toast.LENGTH_SHORT).show()
+                showToast("Failed to load sound")
             }
         }
     }
@@ -128,15 +185,16 @@ class DetailWordActivity : AppCompatActivity() {
             mediaRecorder?.setAudioSource(MediaRecorder.AudioSource.MIC)
             mediaRecorder?.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
             mediaRecorder?.setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
+            mediaRecorder?.setAudioSamplingRate(16000)
             output?.let { mediaRecorder?.setOutputFile(it) }
 
             mediaRecorder?.prepare()
             mediaRecorder?.start()
             state = true
-            Toast.makeText(this, "Recording started ...", Toast.LENGTH_SHORT).show()
+            showToast("Recording started ...")
         } catch (e: Exception) {
             e.printStackTrace()
-            Toast.makeText(this, "Recording failed: ${e.message}", Toast.LENGTH_SHORT).show()
+            showToast("Recording failed: ${e.message}")
         }
     }
 
@@ -145,7 +203,7 @@ class DetailWordActivity : AppCompatActivity() {
             mediaRecorder?.stop()
             mediaRecorder?.release()
             state = false
-            Toast.makeText(this, "Recording stopped", Toast.LENGTH_SHORT).show()
+            showToast("Recording stopped")
         }
         Log.d("INI PATH", File(output).toString())
     }
@@ -157,10 +215,22 @@ class DetailWordActivity : AppCompatActivity() {
                 mediaPlayer?.setDataSource(it)
                 mediaPlayer?.prepare()
                 mediaPlayer?.start()
-                Toast.makeText(this, "Recording playing", Toast.LENGTH_SHORT).show()
+                showToast("Recording playing")
             }
         } catch (e: IOException) {
             e.printStackTrace()
+        }
+    }
+
+    private fun showToast(msg: String) {
+        Toast.makeText(this@DetailWordActivity, msg, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun showLoading(state: Boolean) {
+        if (state) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
         }
     }
 

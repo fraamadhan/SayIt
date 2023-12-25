@@ -40,3 +40,27 @@ data class Word(
 	@field:SerializedName("Description")
 	val description: String? = null,
 )
+
+data class GradingResponse(
+
+	@field:SerializedName("data")
+	val gradeResult: GradingResult,
+
+	@field:SerializedName("message")
+	val message: String? = null,
+
+	@field:SerializedName("status")
+	val status: String? = null
+)
+
+data class GradingResult(
+
+	@field:SerializedName("transcription")
+	val transcription: String? = null,
+
+	@field:SerializedName("accuracy")
+	val accuracy: Int? = null,
+
+	@field:SerializedName("compute_cer")
+	val computeCer: Int? = null
+)

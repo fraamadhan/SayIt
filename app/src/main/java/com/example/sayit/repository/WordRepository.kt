@@ -8,17 +8,29 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.liveData
 import com.example.sayit.data.api.ApiService
+import com.example.sayit.data.api.ApiServiceGrading
 import com.example.sayit.database.WordDao
 import com.example.sayit.database.WordDatabase
+import com.example.sayit.model.GradingResponse
 import com.example.sayit.model.Word
 import com.example.sayit.model.WordItem
 import com.example.sayit.remote.WordRemoteMediator
+import com.google.gson.Gson
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.HttpException
+import java.io.File
 
 class WordRepository(
     private val apiService: ApiService,
     private val dao: WordDao,
     private val wordDatabase: WordDatabase,
+    private val apiServiceGrading: ApiServiceGrading,
 ) {
 //    fun getWordFromApi(token: String): Flow<Result<List<WordItem>>> = flow {
 //        emit(Result.Loading)
@@ -49,7 +61,28 @@ class WordRepository(
 
     }
 
-    fun getDetailStory(token: String, wordId: Int) : LiveData<Result<Word>> = liveData {
+    fun gradingAudio(word: String, audioFile: File): Flow<Result<GradingResponse>> = flow {
+        emit(Result.Loading)
+        val requestBody = word.toRequestBody("text/plain".toMediaType())
+        val requestAudioFile = audioFile.asRequestBody("audio/*".toMediaTypeOrNull())
+
+        val multipartBody = MultipartBody.Part.createFormData(
+            "voice",
+            audioFile.name.orEmpty(),
+            requestAudioFile
+        )
+
+        try {
+            val response = apiServiceGrading.grading(multipartBody, requestBody)
+            emit(Result.Success(response))
+        } catch (e: HttpException) {
+            val errorBody = e.response()?.errorBody()?.string()
+            val errorResponse = Gson().fromJson(errorBody, GradingResponse::class.java)
+            emit(Result.Error(errorResponse.message.toString()))
+        }
+    }
+
+    fun getDetailWord(token: String, wordId: Int) : LiveData<Result<Word>> = liveData {
         emit(Result.Loading)
         try {
             val successResponse = apiService.getWordDetail("Bearer $token", wordId)
@@ -72,10 +105,11 @@ class WordRepository(
         fun getInstance(
             apiService: ApiService,
             dao: WordDao,
-            wordDb: WordDatabase
+            wordDb: WordDatabase,
+            apiServiceGrading: ApiServiceGrading
         ) : WordRepository =
             instance ?: synchronized(this) {
-                instance ?: WordRepository(apiService, dao, wordDb)
+                instance ?: WordRepository(apiService, dao, wordDb, apiServiceGrading)
             }.also { instance = it }
     }
 }

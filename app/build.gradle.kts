@@ -15,6 +15,7 @@ android {
         versionCode = 1
         versionName = "1.0"
         buildConfigField("String", "BASE_URL", "\"https://say-it-capstone-project.et.r.appspot.com/\"")
+        buildConfigField("String", "GRADING_URL", "\"http://34.101.66.143:5000/\"")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
