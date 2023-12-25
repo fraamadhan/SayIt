@@ -64,6 +64,8 @@ class ProfileActivity : AppCompatActivity() {
                     }
                     is Result.Success -> {
                         hideLoading()
+                        Log.d("INI DETAIL USER", result.data.user.toString())
+                        Log.d("TOKEN DETAIL", token.toString())
                         username =  result.data.user?.username
                         email = result.data.user?.email
                         urlImage = result.data.user?.profilePicture

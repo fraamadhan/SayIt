@@ -3,16 +3,15 @@ package com.example.sayit.adapter
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sayit.databinding.ItemWordsBinding
 import com.example.sayit.model.WordItem
 import com.example.sayit.utils.WORD_ID
 import com.example.sayit.view.detailword.DetailWordActivity
 
-class WordAdapter: PagingDataAdapter<WordItem, WordAdapter.MyViewHolder> (DIFF_CALLBACK){
-
+class WordSearchAdapter: ListAdapter<WordItem, WordSearchAdapter.MyViewHolder> (DIFF_CALLBACK){
     class MyViewHolder(private val binding: ItemWordsBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(word: WordItem) {
             binding.wordItem.text = word.word
@@ -35,6 +34,7 @@ class WordAdapter: PagingDataAdapter<WordItem, WordAdapter.MyViewHolder> (DIFF_C
         val binding = ItemWordsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MyViewHolder(binding)
     }
+
     companion object{
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<WordItem>(){
             override fun areItemsTheSame(

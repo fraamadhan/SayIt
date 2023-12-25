@@ -13,7 +13,8 @@ object Injection {
         val apiService = ApiConfig.getApiService()
         val database = WordDatabase.getDatabase(context)
         val dao = database.wordDao()
-        return WordRepository.getInstance(apiService, dao)
+        val apiServiceGrading = ApiConfig.getApiServiceGrading()
+        return WordRepository.getInstance(apiService, dao, database, apiServiceGrading)
     }
 
     fun provideUserRepository(context: Context): UserRepository {
